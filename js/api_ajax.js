@@ -1,4 +1,5 @@
-function get_translation (text_var,from,to) {
+function get_translation (text_var,from,to,tr_box_width,tr_box_height) 
+{
     jQuery.post(
         // see tip #1 for how we declare global javascript variables
         tr_box_ajax.ajaxurl,
@@ -9,16 +10,39 @@ function get_translation (text_var,from,to) {
             action : 'tr-box-request',
      
             // other parameters can be added along with "action"
-            text_to_translate : text_var,
-            from_language: from,
-            to_language: to
+            text_to_translate :text_var,
+            from_language :from,
+            to_language :to,
+            security_check :tr_box_ajax.security_check
         },
         function(returned_json){
-            var translation_text = returned_json.matches[0].translation;
+            if (jQuery('#from_text').length <= 0) 
+            {
+                jQuery('#translate').after('<textarea id="from_text" style="width:'+tr_box_width+';height:'+tr_box_height+';"></textarea>');
+            }
 
-            if (jQuery('#from_text').length > 0) {
-                        jQuery('#from_text').text(translation_text);
-                    } else { jQuery('#translate').after('<textarea id=\"from_text\" style=\"width:{$width}; height:{$height};\">'+translation_text+'</textarea>');}
+            try 
+            {
+                var translation_text = returned_json.matches[0].translation;
+                jQuery('#from_text').text(translation_text);
+            }
+            catch(err)
+            {
+                jQuery('#from_text').text('No available translation!');
+            }
         }
     );
+}
+
+function swap_langs()
+{
+    var from = jQuery('#from option:selected').val();
+    var to = jQuery('#to option:selected').val();
+    jQuery('#from').val(to);
+    jQuery('#to').val(from);
+}
+
+function generate_shortcode(arg)
+{
+    alert(arg);
 }

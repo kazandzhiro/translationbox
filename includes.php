@@ -6,17 +6,17 @@ define(LANGUAGES, serialize($languages_array));
 
 $api_lang_arr = array();
 
-function my_scripts() {
+function tr_box_scripts() {
 	wp_deregister_script( 'jquery' );
 	wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'tr-box-request', plugin_dir_url( __FILE__ ) . 'js/api_ajax.js', array( 'jquery' ) );
-	wp_localize_script( 'tr-box-request', 'tr_box_ajax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+	wp_localize_script( 'tr-box-request', 'tr_box_ajax', array( 'ajaxurl' => admin_url( 'admin-ajax.php'),'security_check' => wp_create_nonce( 'tr_box_check' ), ) );
 
 }    
 
 
-function add_translation ($atts)
+function tr_box_translate ($atts)
 	{
 
 		extract(shortcode_atts( array(
@@ -37,7 +37,7 @@ function add_translation ($atts)
 		}
 		}
 // TODO move it to a js file
-		// $trbox_nonce= wp_create_nonce('tr-box');
+		// $trbox_nonce = wp_create_nonce('tr-box');
 		// var_export($trbox_nonce);
 
 		echo "<textarea id='text_to' style='width:{$width}; height:{$height};'></textarea>";
@@ -46,17 +46,24 @@ function add_translation ($atts)
 		foreach ($languages as $value) {
 			echo	"<option value=\"{$api_lang_arr[$value]}\">$value</option>";	
 		}
-		echo "</select> ".__('To:')."";
+		echo "</select><a href='javascript:swap_langs()'>".__('To:')."</a>";
 		echo "<select id=\"to\">";
 		foreach ($languages as $key => $value) {
 			echo	"<option value=\"{$api_lang_arr[$value]}\">$value</option>";	
 		}
 		echo "</select>";
-		echo "&nbsp;&nbsp;&nbsp;<input type=\"submit\" id='translate' style='height:27px' value=\"".__('Translate')."\" onclick=\"get_translation($('#text_to').val(),$('#from').val(),$('#to').val());return false;\"><br>";
+		echo "&nbsp;&nbsp;&nbsp;<input type=\"submit\" id='translate' style='height:27px' value=\"".__('Translate')."\" onclick=\"get_translation($('#text_to').val(),$('#from').val(),$('#to').val(),'{$width}','{$height}');return false;\"><br>";
 		echo base64_decode(get_option('trbox_link'));
 	}
-function myajax_submit ()
-{
+function tr_box_ajax_call(
+){
+	$nonce = $_POST['security_check'];
+
+    // check to see if the submitted nonce matches with the
+    // generated nonce we created earlier
+   if ( ! wp_verify_nonce($nonce, 'tr_box_check' ))
+   	{	die ( 'CSRF Check Failed !');	}
+ 
 	$text = $_POST['text_to_translate'];
 	$from = $_POST['from_language'];
 	$to = $_POST['to_language'];
@@ -78,8 +85,10 @@ function translation_box_options (){
 	update_option('trbox_link', 'PGEgaHJlZj0iaHR0cDovL3d3dy50cmFuc2xhdG9yYm94LmNvbS8iIHRhcmdldD0iX2JsYW5rIiBzdHlsZT0icG9zaXRpb246cmVsYXRpdmU7bGVmdDo4MCUiPlRyYW5zbGF0b3Jib3g8L2E+');
 }
 
-function translation_box_page(){
-echo "	
+function translation_box_page()
+{	
+  wp_enqueue_script( 'tr-box-request', plugin_dir_url( __FILE__ ) . 'js/api_ajax.js', array( 'jquery' ) );
+  echo "
   <div class=\"wrap\" > 
   <?php screen_icon(); ?> 
   <h2>".__('Help Page of Translation Box')."</h2><br>
@@ -88,10 +97,10 @@ echo "
   <p class='description'>".__('The next shortcode is example of the simple usage of Translation Box:')."<br>
   		<p class='box-short-code'><strong>[translation_box languages=\"english,russian,german,spanish,french,chinese\"  width=\"100%\" height=\"200px\"]</strong></p>
   		<ol>
-  		<li>".__('The shortcode is')." <strong>[translation_box]</strong>.".__(' If you use it by itself it will default to showing all the languages from the full list at the end of the section and also will have')."<strong>".__('width')."</strong> ".__('of 100% and')." <strong>".__('height')."</strong> ".__('of 110px')."</li>
-  		<li>".__('The first attribute is called <strong>languages</strong> and is equal to the list of languages (for full list of supported langugages check the bottom section !) you would like to include in your translation box. Make sure you use comma for separation of different languages.')."</li>
-  		<li>".__('The second attribute is called <strong>width</strong> and it is used for setting up the width of the translation boxes. It can accept values in %, px, em, etc.')."</li>
-  		<li>".__('The third attribute is called <strong>height</strong> and it is used for setting up the width of the translation boxes. It can accept values in %, px, em, etc.')."</li>
+  		<li>".__('The shortcode is')." <strong>[translation_box]</strong>.".__(' If you use it by itself it will default to showing all the languages from the full list at the end of the section and also will have')." <strong>".__('width')."</strong> ".__('of 100% and')." <strong>".__('height')."</strong> ".__('of 110px').".</li>
+  		<li>".__('The first attribute is called <strong>languages</strong> and is equal to the list of languages (for full list of supported langugages check the bottom section !) you would like to include in your translation box. Make sure you use comma for separation of different languages').".</li>
+  		<li>".__('The second attribute is called <strong>width</strong> and it is used for setting up the width of the translation boxes. It can accept values in %, px, em, etc.')." .</li>
+  		<li>".__('The third attribute is called <strong>height</strong> and it is used for setting up the width of the translation boxes. It can accept values in %, px, em, etc.')." .</li>
   		</ol>
   		<p>
   			<h3>".__('Full list of supported languages:')."</h3>
@@ -254,33 +263,45 @@ echo "
 						<td>Tetum</td>
   					</tr>
   					<tr>
-						<td>Thai</td>
-						<td>Tibetan</td>
-						<td>Tigrinya</td>
-						<td>Tok Pisin</td>
-						<td>Tokelauan</td>
-						<td>Tongan</td>
-						<td>Tswana</td>
-						<td>Turkish</td>
-						<td>Turkmen</td>
-						<td>Tuvaluan</td>
+						<td><input type='checkbox' name='langs' value='$'>Thai</td>
+						<td><input type='checkbox' name='langs' value='$'>Tibetan</td>
+						<td><input type='checkbox' name='langs' value='$'>Tigrinya</td>
+						<td><input type='checkbox' name='langs' value='$'>Tok Pisin</td>
+						<td><input type='checkbox' name='langs' value='$'>Tokelauan</td>
+						<td><input type='checkbox' name='langs' value='$'>Tongan</td>
+						<td><input type='checkbox' name='langs' value='$'>Tswana</td>
+						<td><input type='checkbox' name='langs' value='$'>Turkish</td>
+						<td><input type='checkbox' name='langs' value='$'>Turkmen</td>
+						<td><input type='checkbox' name='langs' value='$'>Tuvaluan</td>
   					</tr>
   					<tr>
-						<td>Ukrainiazn</td>
-						<td>Uma</td>
-						<td>Uzbek</td>
-						<td>Vietnamese</td>
-						<td>Wallisian</td>
-						<td>Welsh</td>
-						<td>Wolof</td>
-						<td>Xhosa</td>
-						<td>Yiddish</td>
-						<td>Zulu</td>
-  					</tr>
+						<td><input type='checkbox' name='langs' value='$'>Ukrainiazn</td>
+						<td><input type='checkbox' name='langs' value='$'>Uma</td>
+						<td><input type='checkbox' name='langs' value='$'>Uzbek</td>
+						<td><input type='checkbox' name='langs' value='$'>Vietnamese</td>
+						<td><input type='checkbox' name='langs' value='$'>Wallisian</td>
+						<td><input type='checkbox' name='langs' value='$'>Welsh</td>
+						<td><input type='checkbox' name='langs' value='$'>Wolof</td>
+						<td><input type='checkbox' name='langs' value='$'>Xhosa</td>
+						<td><input type='checkbox' checked='checked' name='langs' value='yd'>Yiddish</td>
+						<td><input type='checkbox' checked='checked' name='langs' value='zl'>Zulu</td>
+  					</tr> 
   				</tbody>
   			</table>
   		</p>
   </p>
   </div>
-";
+  <input type='submit' id='shortcode-generator' value='Generate Shortcode' onclick='generate_shortcode()'/><br><br>
+  <textarea readonly='readonly'></textarea>
+  <script type=\"text/javascript\" >
+	  jQuery(document).ready(function() {
+	  	var allLangs = new Array();
+			jQuery('input:checkbox[name=langs]:checked').each(function()
+				{
+					allLangs.push(jQuery(this).val());
+    				
+    			});
+				console.log(allLangs);
+		});
+	</script>";
 }
