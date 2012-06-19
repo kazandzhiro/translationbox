@@ -53,7 +53,7 @@ function tr_box_translate ($atts)
 		}
 		echo "</select>";
 		echo "&nbsp;&nbsp;&nbsp;<input type=\"submit\" id='translate' style='height:27px' value=\"".__('Translate')."\" onclick=\"get_translation($('#text_to').val(),$('#from').val(),$('#to').val(),'{$width}','{$height}');return false;\"><br>";
-		echo base64_decode(get_option('trbox_link'));
+		echo base64_decode(get_option('trbox_important'));
 	}
 function tr_box_ajax_call(
 ){
@@ -82,7 +82,7 @@ function tr_box_ajax_call(
 
 function translation_box_options (){
 	add_options_page('Translation Box','Translation Box','manage_options', 'translation_box_options','translation_box_page');
-	update_option('trbox_link', 'PGEgaHJlZj0iaHR0cDovL3d3dy50cmFuc2xhdG9yYm94LmNvbS8iIHRhcmdldD0iX2JsYW5rIiBzdHlsZT0icG9zaXRpb246cmVsYXRpdmU7bGVmdDo4MCUiPlRyYW5zbGF0b3Jib3g8L2E+');
+	update_option('trbox_important', 'PGEgaHJlZj0iaHR0cDovL3d3dy50cmFuc2xhdG9yYm94LmNvbS8iIHRhcmdldD0iX2JsYW5rIiBzdHlsZT0icG9zaXRpb246cmVsYXRpdmU7bGVmdDo4MCUiPlRyYW5zbGF0b3Jib3g8L2E+');
 }
 
 function translation_box_page()
@@ -107,184 +107,184 @@ function translation_box_page()
   			<table border='1' cellpadding='2'>
   				<tbody>
   					<tr>
-						<td>Afrikaans</td>
-						<td>Albanian</td>
-						<td>Amharic</td>
-						<td>Arabic</td>
-						<td>Armenian</td>
-						<td>Azerbaijani</td>
-						<td>Bajan</td>
-						<td>Balkan Gipsy</td>
-						<td>Basque</td>
-						<td>Bemba</td>
+						<td><input type='checkbox' name='langs' value='Afrikaans' />Afrikaans</td>
+						<td><input type='checkbox' name='langs' value='Albanian' />Albanian</td>
+						<td><input type='checkbox' name='langs' value='Amharic' />Amharic</td>
+						<td><input type='checkbox' name='langs' value='Arabic' />Arabic</td>
+						<td><input type='checkbox' name='langs' value='Armenian' />Armenian</td>
+						<td><input type='checkbox' name='langs' value='Azerbaijani' />Azerbaijani</td>
+						<td><input type='checkbox' name='langs' value='Bajan' />Bajan</td>
+						<td><input type='checkbox' name='langs' value='Balkan Gipsy' />Balkan Gipsy</td>
+						<td><input type='checkbox' name='langs' value='Basque' />Basque</td>
+						<td><input type='checkbox' name='langs' value='Bemba' />Bemba</td>
   					</tr>
   					<tr>
-						<td>Bengali</td>
-						<td>Bielarus</td>
-						<td>Bislama</td>
-						<td>Bosnian</td>
-						<td>Breton</td>
-						<td>Bulgarian</td>
-						<td>Burmese</td>
-						<td>Catalan</td>
-						<td>Cebuano</td>
-						<td>Chamorro</td>
+						<td><input type='checkbox' name='langs' value='Bengali' />Bengali</td>
+						<td><input type='checkbox' name='langs' value='Bielarus' />Bielarus</td>
+						<td><input type='checkbox' name='langs' value='Bislama' />Bislama</td>
+						<td><input type='checkbox' name='langs' value='Bosnian' />Bosnian</td>
+						<td><input type='checkbox' name='langs' value='Breton' />Breton</td>
+						<td><input type='checkbox' name='langs' value='Bulgarian' />Bulgarian</td>
+						<td><input type='checkbox' name='langs' value='Burmese' />Burmese</td>
+						<td><input type='checkbox' name='langs' value='Catalan' />Catalan</td>
+						<td><input type='checkbox' name='langs' value='Cebuano' />Cebuano</td>
+						<td><input type='checkbox' name='langs' value='Chamorro' />Chamorro</td>
   					</tr>
   					<tr>
-						<td>Chinese (Simplified)</td>
-						<td>Chinese (Traditional)</td>
-						<td>Comorian (Ngazidja)</td>
-						<td>Coptic</td>
-						<td>English (Antigua and Barbuda)</td>
-						<td>English (Bahamas)</td>
-						<td>English (Grenadian)</td>
-						<td>English (Guyanese)</td>
-						<td>English (Jamaican)</td>
-						<td>English (Vincentian)</td>
+						<td><input type='checkbox' name='langs' value='Chinese (Simplified)' />Chinese (Simplified)</td>
+						<td><input type='checkbox' name='langs' value='Chinese (Traditional)' />Chinese (Traditional)</td>
+						<td><input type='checkbox' name='langs' value='Comorian (Ngazidja)' />Comorian (Ngazidja)</td>
+						<td><input type='checkbox' name='langs' value='Coptic' />Coptic</td>
+						<td><input type='checkbox' name='langs' value='English (Antigua and Barbuda)' />English (Antigua and Barbuda)</td>
+						<td><input type='checkbox' name='langs' value='English (Bahamas)' />English (Bahamas)</td>
+						<td><input type='checkbox' name='langs' value='English (Grenadian)' />English (Grenadian)</td>
+						<td><input type='checkbox' name='langs' value='English (Guyanese)' />English (Guyanese)</td>
+						<td><input type='checkbox' name='langs' value='English (Jamaican)' />English (Jamaican)</td>
+						<td><input type='checkbox' name='langs' value='English (Vincentian)' />English (Vincentian)</td>
   					</tr>
   					<tr>
-						<td>English (Virgin Islands)</td>
-						<td>French (Haitian)</td>
-						<td>French (Saint Lucian)</td>
-						<td>French (Seselwa)</td>
-						<td>Portuguese (Upper Guinea)</td>
-						<td>Croatian</td>
-						<td>Czech</td>
-						<td>Danish</td>
-						<td>Dutch</td>
-						<td>Dzongkha</td>
+						<td><input type='checkbox' name='langs' value='English (Virgin Islands)' />English (Virgin Islands)</td>
+						<td><input type='checkbox' name='langs' value='French (Haitian)' />French (Haitian)</td>
+						<td><input type='checkbox' name='langs' value='French (Saint Lucian)' />French (Saint Lucian)</td>
+						<td><input type='checkbox' name='langs' value='French (Seselwa)' />French (Seselwa)</td>
+						<td><input type='checkbox' name='langs' value='Portuguese (Upper Guinea)' />Portuguese (Upper Guinea)</td>
+						<td><input type='checkbox' name='langs' value='Croatian' />Croatian</td>
+						<td><input type='checkbox' name='langs' value='Czech' />Czech</td>
+						<td><input type='checkbox' name='langs' value='Danish' />Danish</td>
+						<td><input type='checkbox' name='langs' value='Dutch' />Dutch</td>
+						<td><input type='checkbox' name='langs' value='Dzongkha' />Dzongkha</td>
   					</tr>
   					<tr>
-						<td>English</td>
-						<td>Esperanto</td>
-						<td>Estonian</td>
-						<td>Fanagalo</td>
-						<td>Faroese</td>
-						<td>Finnish</td>
-						<td>French</td>
-						<td>Galician</td>
-						<td>Georgian</td>
-						<td>German</td>
+						<td><input type='checkbox' name='langs' value='English' />English</td>
+						<td><input type='checkbox' name='langs' value='Esperanto' />Esperanto</td>
+						<td><input type='checkbox' name='langs' value='Estonian' />Estonian</td>
+						<td><input type='checkbox' name='langs' value='Fanagalo' />Fanagalo</td>
+						<td><input type='checkbox' name='langs' value='Faroese' />Faroese</td>
+						<td><input type='checkbox' name='langs' value='Finnish' />Finnish</td>
+						<td><input type='checkbox' name='langs' value='French' />French</td>
+						<td><input type='checkbox' name='langs' value='Galician' />Galician</td>
+						<td><input type='checkbox' name='langs' value='Georgian' />Georgian</td>
+						<td><input type='checkbox' name='langs' value='German' />German</td>
   					</tr>
   					<tr>
-						<td>Greek</td>
-						<td>Greek (Classical)</td>
-						<td>Gujarati</td>
-						<td>Hausa</td>
-						<td>Hawaiian</td>
-						<td>Hebrew</td>
-						<td>Hindi</td>
-						<td>Hungarian</td>
-						<td>Icelandic</td>
-						<td>Indonesian</td>
+						<td><input type='checkbox' name='langs' value='Greek' />Greek</td>
+						<td><input type='checkbox' name='langs' value='Greek (Classical)' />Greek (Classical)</td>
+						<td><input type='checkbox' name='langs' value='Gujarati' />Gujarati</td>
+						<td><input type='checkbox' name='langs' value='Hausa' />Hausa</td>
+						<td><input type='checkbox' name='langs' value='Hawaiian' />Hawaiian</td>
+						<td><input type='checkbox' name='langs' value='Hebrew' />Hebrew</td>
+						<td><input type='checkbox' name='langs' value='Hindi' />Hindi</td>
+						<td><input type='checkbox' name='langs' value='Hungarian' />Hungarian</td>
+						<td><input type='checkbox' name='langs' value='Icelandic' />Icelandic</td>
+						<td><input type='checkbox' name='langs' value='Indonesian' />Indonesian</td>
   					</tr>
   					<tr>
-						<td>Inuktitut (Greenlandic)</td>
-						<td>Irish Gaelic</td>
-						<td>Italian</td>
-						<td>Japanese</td>
-						<td>Javanese</td>
-						<td>Kabuverdianu</td>
-						<td>Kabylian</td>
-						<td>Kannada</td>
-						<td>Kazakh</td>
-						<td>Khmer</td>
+						<td><input type='checkbox' name='langs' value='Inuktitut (Greenlandic)' />Inuktitut (Greenlandic)</td>
+						<td><input type='checkbox' name='langs' value='Irish Gaelic' />Irish Gaelic</td>
+						<td><input type='checkbox' name='langs' value='Italian' />Italian</td>
+						<td><input type='checkbox' name='langs' value='Japanese' />Japanese</td>
+						<td><input type='checkbox' name='langs' value='Javanese' />Javanese</td>
+						<td><input type='checkbox' name='langs' value='Kabuverdianu' />Kabuverdianu</td>
+						<td><input type='checkbox' name='langs' value='Kabylian' />Kabylian</td>
+						<td><input type='checkbox' name='langs' value='Kannada' />Kannada</td>
+						<td><input type='checkbox' name='langs' value='Kazakh' />Kazakh</td>
+						<td><input type='checkbox' name='langs' value='Khmer' />Khmer</td>
   					</tr>
   					<tr>
-						<td>Kinyarwanda</td>
-						<td>Kirundi</td>
-						<td>Korean</td>
-						<td>Kurdish</td>
-						<td>Kurdish Sorani</td>
-						<td>Kyrgyz</td>
-						<td>Lao</td>
-						<td>Latin</td>
-						<td>Latvian</td>
-						<td>Lithuanian</td>
+						<td><input type='checkbox' name='langs' value='Kinyarwanda' />Kinyarwanda</td>
+						<td><input type='checkbox' name='langs' value='Kirundi' />Kirundi</td>
+						<td><input type='checkbox' name='langs' value='Korean' />Korean</td>
+						<td><input type='checkbox' name='langs' value='Kurdish' />Kurdish</td>
+						<td><input type='checkbox' name='langs' value='Kurdish Sorani' />Kurdish Sorani</td>
+						<td><input type='checkbox' name='langs' value='Kyrgyz' />Kyrgyz</td>
+						<td><input type='checkbox' name='langs' value='Lao' />Lao</td>
+						<td><input type='checkbox' name='langs' value='Latin' />Latin</td>
+						<td><input type='checkbox' name='langs' value='Latvian' />Latvian</td>
+						<td><input type='checkbox' name='langs' value='Lithuanian' />Lithuanian</td>
   					</tr>
   					<tr>
-						<td>Luxembourgish</td>
-						<td>Macedonian</td>
-						<td>Malagasy</td>
-						<td>Malay</td>
-						<td>Maldivian</td>
-						<td>Maltese</td>
-						<td>Manx Gaelic</td>
-						<td>Maori</td>
-						<td>Marshallese</td>
-						<td>Mende</td>
+						<td><input type='checkbox' name='langs' value='Luxembourgish' />Luxembourgish</td>
+						<td><input type='checkbox' name='langs' value='Macedonian' />Macedonian</td>
+						<td><input type='checkbox' name='langs' value='Malagasy' />Malagasy</td>
+						<td><input type='checkbox' name='langs' value='Malay' />Malay</td>
+						<td><input type='checkbox' name='langs' value='Maldivian' />Maldivian</td>
+						<td><input type='checkbox' name='langs' value='Maltese' />Maltese</td>
+						<td><input type='checkbox' name='langs' value='Manx Gaelic' />Manx Gaelic</td>
+						<td><input type='checkbox' name='langs' value='Maori' />Maori</td>
+						<td><input type='checkbox' name='langs' value='Marshallese' />Marshallese</td>
+						<td><input type='checkbox' name='langs' value='Mende' />Mende</td>
   					</tr>
   					<tr>
-						<td>Mongolian</td>
-						<td>Morisyen</td>
-						<td>Nepali</td>
-						<td>Niuean</td>
-						<td>Norwegian</td>
-						<td>Nyanja</td>
-						<td>Pakistani</td>
-						<td>Palauan</td>
-						<td>Panjabi</td>
-						<td>Papiamentu</td>
+						<td><input type='checkbox' name='langs' value='Mongolian' />Mongolian</td>
+						<td><input type='checkbox' name='langs' value='Morisyen' />Morisyen</td>
+						<td><input type='checkbox' name='langs' value='Nepali' />Nepali</td>
+						<td><input type='checkbox' name='langs' value='Niuean' />Niuean</td>
+						<td><input type='checkbox' name='langs' value='Norwegian' />Norwegian</td>
+						<td><input type='checkbox' name='langs' value='Nyanja' />Nyanja</td>
+						<td><input type='checkbox' name='langs' value='Pakistani' />Pakistani</td>
+						<td><input type='checkbox' name='langs' value='Palauan' />Palauan</td>
+						<td><input type='checkbox' name='langs' value='Panjabi' />Panjabi</td>
+						<td><input type='checkbox' name='langs' value='Papiamentu' />Papiamentu</td>
   					</tr>
   					<tr>
-						<td>Pashto</td>
-						<td>Persian</td>
-						<td>Pijin</td>
-						<td>Polish</td>
-						<td>Portuguese</td>
-						<td>Potawatomi</td>
-						<td>Quechua</td>
-						<td>Romanian</td>
-						<td>Russian</td>
-						<td>Samoan</td>
+						<td><input type='checkbox' name='langs' value='Pashto' />Pashto</td>
+						<td><input type='checkbox' name='langs' value='Persian' />Persian</td>
+						<td><input type='checkbox' name='langs' value='Pijin' />Pijin</td>
+						<td><input type='checkbox' name='langs' value='Polish' />Polish</td>
+						<td><input type='checkbox' name='langs' value='Portuguese' />Portuguese</td>
+						<td><input type='checkbox' name='langs' value='Potawatomi' />Potawatomi</td>
+						<td><input type='checkbox' name='langs' value='Quechua' />Quechua</td>
+						<td><input type='checkbox' name='langs' value='Romanian' />Romanian</td>
+						<td><input type='checkbox' name='langs' value='Russian' />Russian</td>
+						<td><input type='checkbox' name='langs' value='Samoan' />Samoan</td>
   					</tr>
   					<tr>
-						<td>Sango</td>
-						<td>Scots Gaelic</td>
-						<td>Serbian</td>
-						<td>Shona</td>
-						<td>Sinhala</td>
-						<td>Slovak</td>
-						<td>Slovenian</td>
-						<td>Somali</td>
-						<td>Sotho Southern</td>
-						<td>Spanish</td>
+						<td><input type='checkbox' name='langs' value='Sango' />Sango</td>
+						<td><input type='checkbox' name='langs' value='Scots Gaelic' />Scots Gaelic</td>
+						<td><input type='checkbox' name='langs' value='Serbian' />Serbian</td>
+						<td><input type='checkbox' name='langs' value='Shona' />Shona</td>
+						<td><input type='checkbox' name='langs' value='Sinhala' />Sinhala</td>
+						<td><input type='checkbox' name='langs' value='Slovak' />Slovak</td>
+						<td><input type='checkbox' name='langs' value='Slovenian' />Slovenian</td>
+						<td><input type='checkbox' name='langs' value='Somali' />Somali</td>
+						<td><input type='checkbox' name='langs' value='Sotho Southern' />Sotho Southern</td>
+						<td><input type='checkbox' name='langs' value='Spanish' />Spanish</td>
   					</tr>
   					<tr>
-						<td>Sranan Tongo</td>
-						<td>Swahili</td>
-						<td>Swedish</td>
-						<td>Syriac (Aramaic)</td>
-						<td>Tagalog</td>
-						<td>Tajik</td>
-						<td>Tamashek (Tuareg)</td>
-						<td>Tamil</td>
-						<td>Telugu</td>
-						<td>Tetum</td>
+						<td><input type='checkbox' name='langs' value='Sranan Tongo' />Sranan Tongo</td>
+						<td><input type='checkbox' name='langs' value='Swahili' />Swahili</td>
+						<td><input type='checkbox' name='langs' value='Swedish' />Swedish</td>
+						<td><input type='checkbox' name='langs' value='Syriac (Aramaic)' />Syriac (Aramaic)</td>
+						<td><input type='checkbox' name='langs' value='Tagalog' />Tagalog</td>
+						<td><input type='checkbox' name='langs' value='Tajik' />Tajik</td>
+						<td><input type='checkbox' name='langs' value='Tamashek (Tuareg)' />Tamashek (Tuareg)</td>
+						<td><input type='checkbox' name='langs' value='Tamil' />Tamil</td>
+						<td><input type='checkbox' name='langs' value='Telugu' />Telugu</td>
+						<td><input type='checkbox' name='langs' value='Tetum' />Tetum</td>
   					</tr>
   					<tr>
-						<td><input type='checkbox' name='langs' value='$'>Thai</td>
-						<td><input type='checkbox' name='langs' value='$'>Tibetan</td>
-						<td><input type='checkbox' name='langs' value='$'>Tigrinya</td>
-						<td><input type='checkbox' name='langs' value='$'>Tok Pisin</td>
-						<td><input type='checkbox' name='langs' value='$'>Tokelauan</td>
-						<td><input type='checkbox' name='langs' value='$'>Tongan</td>
-						<td><input type='checkbox' name='langs' value='$'>Tswana</td>
-						<td><input type='checkbox' name='langs' value='$'>Turkish</td>
-						<td><input type='checkbox' name='langs' value='$'>Turkmen</td>
-						<td><input type='checkbox' name='langs' value='$'>Tuvaluan</td>
+						<td><input type='checkbox' name='langs' value='Thai' />Thai</td>
+						<td><input type='checkbox' name='langs' value='Tibetan' />Tibetan</td>
+						<td><input type='checkbox' name='langs' value='Tigrinya' />Tigrinya</td>
+						<td><input type='checkbox' name='langs' value='Tok Pisin' />Tok Pisin</td>
+						<td><input type='checkbox' name='langs' value='Tokelauan' />Tokelauan</td>
+						<td><input type='checkbox' name='langs' value='Tongan' />Tongan</td>
+						<td><input type='checkbox' name='langs' value='Tswana' />Tswana</td>
+						<td><input type='checkbox' name='langs' value='Turkish' />Turkish</td>
+						<td><input type='checkbox' name='langs' value='Turkmen' />Turkmen</td>
+						<td><input type='checkbox' name='langs' value='Tuvaluan' />Tuvaluan</td>
   					</tr>
   					<tr>
-						<td><input type='checkbox' name='langs' value='$'>Ukrainiazn</td>
-						<td><input type='checkbox' name='langs' value='$'>Uma</td>
-						<td><input type='checkbox' name='langs' value='$'>Uzbek</td>
-						<td><input type='checkbox' name='langs' value='$'>Vietnamese</td>
-						<td><input type='checkbox' name='langs' value='$'>Wallisian</td>
-						<td><input type='checkbox' name='langs' value='$'>Welsh</td>
-						<td><input type='checkbox' name='langs' value='$'>Wolof</td>
-						<td><input type='checkbox' name='langs' value='$'>Xhosa</td>
-						<td><input type='checkbox' checked='checked' name='langs' value='yd'>Yiddish</td>
-						<td><input type='checkbox' checked='checked' name='langs' value='zl'>Zulu</td>
+						<td><input type='checkbox' name='langs' value='Ukrainiazn' />Ukrainiazn</td>
+						<td><input type='checkbox' name='langs' value='Uma' />Uma</td>
+						<td><input type='checkbox' name='langs' value='Uzbek' />Uzbek</td>
+						<td><input type='checkbox' name='langs' value='Vietnamese' />Vietnamese</td>
+						<td><input type='checkbox' name='langs' value='Wallisian' />Wallisian</td>
+						<td><input type='checkbox' name='langs' value='Welsh' />Welsh</td>
+						<td><input type='checkbox' name='langs' value='Wolof' />Wolof</td>
+						<td><input type='checkbox' name='langs' value='Xhosa' />Xhosa</td>
+						<td><input type='checkbox' name='langs' value='Yiddish' />Yiddish</td>
+						<td><input type='checkbox' name='langs' value='Zulu' />Zulu</td>
   					</tr> 
   				</tbody>
   			</table>
@@ -292,16 +292,5 @@ function translation_box_page()
   </p>
   </div>
   <input type='submit' id='shortcode-generator' value='Generate Shortcode' onclick='generate_shortcode()'/><br><br>
-  <textarea readonly='readonly'></textarea>
-  <script type=\"text/javascript\" >
-	  jQuery(document).ready(function() {
-	  	var allLangs = new Array();
-			jQuery('input:checkbox[name=langs]:checked').each(function()
-				{
-					allLangs.push(jQuery(this).val());
-    				
-    			});
-				console.log(allLangs);
-		});
-	</script>";
+  ";
 }
