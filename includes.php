@@ -22,26 +22,28 @@ function tr_box_translate ($atts)
 		extract(shortcode_atts( array(
 		'languages' => 'default',
 		'width' => '100%',
-		'height' => '110px'
+		'height' => '110px',
+		'bgcolor' => '#ffffff',
+		'txtcolor' => '#000000'
 	), $atts ) );
-		if ($languages=='default') {
+		if ($languages=='default') 
+		{
 			$languages = array_values(unserialize(LANGUAGES));
 		}
-		else {
-		$languages = explode(',', $languages);
-		foreach ($languages as $key => $value) {
-			$value = ucfirst(trim($value));
-			if (in_array(ucfirst($value), unserialize(LANGUAGES))) {
-				$languages[$key] = $value;
-			} else {unset($languages[$key]);}
+		else 
+		{
+			$languages = explode(',', $languages);
+				foreach ($languages as $key => $value) {
+					$value = ucfirst(trim($value));
+					if (in_array(ucfirst($value), unserialize(LANGUAGES))) {
+						$languages[$key] = $value;
+					} else {unset($languages[$key]);}
+				}
 		}
-		}
-// TODO move it to a js file
-		// $trbox_nonce = wp_create_nonce('tr-box');
-		// var_export($trbox_nonce);
 
-		echo "<textarea id='text_to' style='width:{$width}; height:{$height};'></textarea>";
 		$api_lang_arr = array_flip(unserialize(LANGUAGES));
+
+		echo "<textarea id='text_to' style='width:{$width}; height:{$height};background-color:{$bgcolor}';color:{$txtcolor}';></textarea>";
 		echo "<select id=\"from\">";
 		foreach ($languages as $value) {
 			echo	"<option value=\"{$api_lang_arr[$value]}\">$value</option>";	
@@ -52,15 +54,13 @@ function tr_box_translate ($atts)
 			echo	"<option value=\"{$api_lang_arr[$value]}\">$value</option>";	
 		}
 		echo "</select>";
-		echo "&nbsp;&nbsp;&nbsp;<input type=\"submit\" id='translate' style='height:27px' value=\"".__('Translate')."\" onclick=\"get_translation($('#text_to').val(),$('#from').val(),$('#to').val(),'{$width}','{$height}');return false;\"><br>";
+		echo "&nbsp;&nbsp;&nbsp;<input type=\"submit\" id='translate' style='height:27px' value=\"".__('Translate')."\" onclick=\"get_translation($('#text_to').val(),$('#from').val(),$('#to').val(),'{$width}','{$height}','{$bgcolor}','{$txtcolor}');return false;\"><br>";
 		echo base64_decode(get_option('trbox_important'));
 	}
 function tr_box_ajax_call(
 ){
 	$nonce = $_POST['security_check'];
 
-    // check to see if the submitted nonce matches with the
-    // generated nonce we created earlier
    if ( ! wp_verify_nonce($nonce, 'tr_box_check' ))
    	{	die ( 'CSRF Check Failed !');	}
  
@@ -70,9 +70,6 @@ function tr_box_ajax_call(
 	$ch = curl_init();
 	$text = urlencode($text);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
-	// curl_setopt($ch,CURLOPT_HTTPHEADER,array (
-	//         "Content-Type: text/xml; charset=utf-8",
-	//     ));
 	curl_setopt($ch, CURLOPT_URL, "http://mymemory.translated.net/api/get?q={$text}&langpair={$from}|{$to}");
 	$response = curl_exec($ch);
 	header( "Content-Type: application/json" );
@@ -92,15 +89,18 @@ function translation_box_page()
   <div class=\"wrap\" > 
   <?php screen_icon(); ?> 
   <h2>".__('Help Page of Translation Box')."</h2><br>
-  <p class='description'>".__('Thanks to this plug with one easy shortcode you are able to transform every post or page into a translation area')."</p>
+  <p class='description'>".__('Thanks to this plug with one easy shortcode you are able to transform every post or page into a translation area.')."</p><br>
 
-  <p class='description'>".__('The next shortcode is example of the simple usage of Translation Box:')."<br>
-  		<p class='box-short-code'><strong>[translation_box languages=\"english,russian,german,spanish,french,chinese\"  width=\"100%\" height=\"200px\"]</strong></p>
+  <p>".__('The next shortcode is example of the simple usage of Translation Box:')."<br>
+  		<p class='box-short-code'><strong>[translation_box languages=\"english,russian,german,spanish,french,chinese\"  width=\"100%\" height=\"200px\" bgcolor=\"white\" txtcolor=\"#000000\"]</strong></p>
+  		
+  		<p> ".__('The shortcode is')." <strong>[translation_box]</strong>.".__(' If you use it by itself it will default to showing all the languages from the full list at the end of the section and also will have')." <strong>".__('width')."</strong> ".__('of 100%').", <strong>".__('height')."</strong> ".__('of 110px').", <strong>".__('bgcolor')."</strong> ".__('of white and')." <strong>".__('txtcolor')."</strong> ".__('of black').".</p>
   		<ol>
-  		<li>".__('The shortcode is')." <strong>[translation_box]</strong>.".__(' If you use it by itself it will default to showing all the languages from the full list at the end of the section and also will have')." <strong>".__('width')."</strong> ".__('of 100% and')." <strong>".__('height')."</strong> ".__('of 110px').".</li>
   		<li>".__('The first attribute is called <strong>languages</strong> and is equal to the list of languages (for full list of supported langugages check the bottom section !) you would like to include in your translation box. Make sure you use comma for separation of different languages').".</li>
   		<li>".__('The second attribute is called <strong>width</strong> and it is used for setting up the width of the translation boxes. It can accept values in %, px, em, etc.')." .</li>
   		<li>".__('The third attribute is called <strong>height</strong> and it is used for setting up the width of the translation boxes. It can accept values in %, px, em, etc.')." .</li>
+  		<li>".__('The fourth attribute is called <strong>bgcolor</strong> and it is used for setting up the CSS background color for the text box for translation. Make sure you suppliy valid CSS values for this property')." .</li>
+  		<li>".__('The fifth attribute is called <strong>txtcolor</strong> and it is used for setting up the color of the text in the text box for translation. Make sure you suppliy valid CSS values for this property')." .</li>
   		</ol>
   		<p>
   			<h3>".__('Full list of supported languages:')."</h3>
